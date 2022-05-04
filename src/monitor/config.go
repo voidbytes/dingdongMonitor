@@ -23,6 +23,8 @@ type config struct {
 	Mode      int    `mapstructure:"mode"`
 	Rate      uint   `mapstructure:"rate"`
 	StationId string `mapstructure:"station_id"`
+	Longitude string `mapstructure:"longitude"`
+	Latitude  string `mapstructure:"latitude"`
 	Bark      struct {
 		Id    []string `mapstructure:"id"`
 		Sound string   `mapstructure:"sound"`
@@ -47,7 +49,14 @@ func InnitConfig(path string) {
 
 	if Conf.StationId == "" {
 		fmt.Println("rquire station_id")
-		panic(fmt.Errorf("rquire station_id"))
+		if Conf.Latitude == "" || Conf.Longitude == "" {
+			panic(fmt.Errorf("请至少填写station_id和经纬度的其中一项"))
+		}
+		Conf.StationId = GetStationId()
+		if Conf.StationId == "" {
+			panic(fmt.Errorf("获取站点信息失败"))
+		}
+
 	}
 	if len(Conf.Bark.Id) == 0 {
 		fmt.Println("require bark_id")
