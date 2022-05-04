@@ -1,0 +1,4 @@
+mode: 1 #mode=0 本机模式 mode=1 github_action模式
+station_id:  #站点id
+bark:
+  id: #bark_id
