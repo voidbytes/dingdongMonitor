@@ -13,7 +13,7 @@ go build
 1.将config.example.yaml改名为config.yaml  
 2.根据提示设置配置文件  
 3.直接打开程序运行。在本机将根据配置文件设置的频率在未登录的情况下访问叮咚首页信息，设置过于频繁可能会导致**封IP**  
-### GitHub Action运行
+#### GitHub Action运行
 1.fork本仓库  
 2.将config.example.yaml改名为config.yaml，设置好所需信息  
 2.取消掉monitor.yml所有注释即可定时运行  
