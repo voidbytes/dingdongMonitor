@@ -36,12 +36,12 @@ func InnitConfig(path string) {
 	viper.AddConfigPath(path)
 	// Read configuration
 	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println("fatal error reading configuration file: %s \n", err)
+		fmt.Printf("fatal error reading configuration file: %s \n", err)
 		panic(fmt.Errorf("fatal error reading configuration file: %s \n", err))
 	}
 	// Unmarshal configuration
 	if err := viper.Unmarshal(Conf); err != nil {
-		fmt.Println("unmarshal configuration failed, err: %s \n", err)
+		fmt.Printf("unmarshal configuration failed, err: %s \n", err)
 		panic(fmt.Errorf("unmarshal configuration failed, err: %s \n", err))
 	}
 
