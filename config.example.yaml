@@ -1,4 +1,8 @@
-mode: 1 #mode=0 本机模式 mode=1 github_action模式
-station_id:  #站点id
+mode: 0 #mode=0 本机模式，启动后会根据rate设置的时间运行 mode=1 github_action模式，每次启动只运行一次
+station_id:  #站点id 通过抓包得到
+rate: 3600 #监控频率，单位：秒，GitHub action模式下需要配置monitor.yml，本设置无效
 bark:
-  id: #bark_id
+  id: #bark id 支持多设备
+    -
+    -
+  sound: alarm #通知声音

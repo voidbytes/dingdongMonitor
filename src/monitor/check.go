@@ -3,12 +3,14 @@ package monitor
 import (
 	"crypto/tls"
 	"errors"
+	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"strings"
 )
 
-func Check_home() (bool, error) {
+func CheckHome() (bool, error) {
 	url := "https://maicai.api.ddxq.mobi/homeApi/newDetails"
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -22,7 +24,7 @@ func Check_home() (bool, error) {
 	req.Header.Add("user-agent", UA)
 	query := req.URL.Query()
 	query.Add("api_version", API_VERSION)
-	query.Add("station_id'", Conf.StationId)
+	query.Add("station_id", Conf.StationId)
 	query.Add("city_number", CITY)
 	query.Add("buildVersion", BUILD_VERSION)
 	query.Add("app_client_id", "1")
@@ -40,7 +42,12 @@ func Check_home() (bool, error) {
 	if resp.StatusCode != 200 || !strings.Contains(string(body), "成功") {
 		return false, errors.New(string(body))
 	}
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err = Body.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}(resp.Body)
 	if strings.Contains(string(body), BOOKABLE) {
 
 		return true, nil

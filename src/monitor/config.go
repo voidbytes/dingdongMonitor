@@ -9,7 +9,7 @@ import (
 const (
 	UA              = "neighborhood/9.50.2 (iPhone; iOS 15.4.1; Scale/3.00)"
 	CITY            = "0101"
-	API_VERSION     = "9.50.26"
+	API_VERSION     = "9.50.2"
 	BUILD_VERSION   = "1232"
 	TIME_OUT        = 10 * time.Second
 	BOOKABLE        = "可预约"
@@ -21,10 +21,11 @@ var Conf = new(config)
 
 type config struct {
 	Mode      int    `mapstructure:"mode"`
+	Rate      uint   `mapstructure:"rate"`
 	StationId string `mapstructure:"station_id"`
 	Bark      struct {
-		Id    string `mapstructure:"id"`
-		Sound string `mapstructure:"sound"`
+		Id    []string `mapstructure:"id"`
+		Sound string   `mapstructure:"sound"`
 	}
 }
 
@@ -45,7 +46,15 @@ func InnitConfig(path string) {
 	if Conf.StationId == "" {
 		panic(fmt.Errorf("rquire station_id"))
 	}
-	if Conf.Bark.Id == "" {
+	if len(Conf.Bark.Id) == 0 {
 		panic(fmt.Errorf("require bark_id"))
+	}
+	if Conf.Mode == 0 {
+		fmt.Println("当前为本机模式运行")
+	} else if Conf.Mode == 1 {
+		fmt.Println("当前为GitHub Action模式运行")
+	}
+	if Conf.Rate == 0 {
+		Conf.Rate = 3600
 	}
 }
