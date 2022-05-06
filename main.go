@@ -71,7 +71,7 @@ func CheckStockAndTrans() bool {
 	if !bookable {
 		return false
 	}
-	page := 1
+
 	keywords := monitor.Conf.KeyWords
 	var newKeywords []monitor.Keyword
 	for _, keyword := range keywords {
@@ -87,14 +87,14 @@ func CheckStockAndTrans() bool {
 		newKeywords = append(newKeywords, keyword)
 
 	}
-
+	page := 1
 	for true {
 		isSuccess, isMore, products, totalGoods := monitor.CheckStock(page, newKeywords)
 		page = page + 1
 
 		if isSuccess {
-
 			if len(newKeywords) == 0 && totalGoods > 0 {
+				fmt.Println("首页有商品可以购买")
 				monitor.PushTo("当前有物品可以购买", "详情请查看App", monitor.Conf.Bark.Sound)
 				return true
 			}
@@ -105,6 +105,9 @@ func CheckStockAndTrans() bool {
 				name = reg.ReplaceAllString(name, "")
 				price := product["price"]
 				time.Sleep(100 * time.Microsecond)
+				fmt.Println("您关注的 " + " 已可购买")
+				fmt.Println("商品名: " + name)
+				fmt.Println("价格:" + price)
 				monitor.PushTo(strings.Trim("您关注的"+string([]rune(keyword)[:6]), "\x00")+"已可购买", "商品名:"+strings.Trim(string([]rune(name)[:10]), "\x00")+" 价格:"+price, monitor.Conf.Bark.Sound)
 
 			}
