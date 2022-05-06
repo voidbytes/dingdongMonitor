@@ -1,5 +1,5 @@
 # dingdongMonitor
-叮咚运力监控，监控叮咚首页公告信息获取当前运力情况，通过bark app通知到手机。本工具不需要抓包，只需要获取经纬度坐标即可  
+叮咚运力监控，监控叮咚首页公告信息获取当前运力情况与货品有货情况，通过bark app通知到手机。本工具不需要抓包，只需要获取经纬度坐标即可  
 经纬度获取： https://lbs.amap.com/tools/picker
 # 使用说明
 首先需要自己使用Charles、Fiddler等工具对叮咚买菜小程序、App抓包，获取config.yaml中需要的参数。
@@ -17,7 +17,7 @@ go build
 #### GitHub Action运行
 1.fork本仓库  
 2.将config.example.yaml改名为config.yaml，设置好所需信息  
-2.取消掉monitor.yml所有注释即可定时运行  
-3.monitor.yml配置方法参见：  
+3.根据monitor.yml设置好相应的secrets 
+4.monitor.yml配置方法参见：  
 [GitHub Actions文档 - GitHub Docs](https://docs.github.com/cn/actions)  
 [Crontab.guru - The cron schedule expression editor](https://crontab.guru/)
