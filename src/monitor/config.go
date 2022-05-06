@@ -1,6 +1,7 @@
 package monitor
 
 import (
+	"dingdong_monitor/src/util"
 	"flag"
 	"fmt"
 	"github.com/spf13/viper"
@@ -30,13 +31,13 @@ type Keyword struct {
 	Price string `mapstructure:"price"`
 }
 type config struct {
-	Mode                 int  `mapstructure:"mode"`
-	Rate                 uint `mapstructure:"rate"`
-	IsEnableStockMonitor bool `mapstructure:"stock_monitor"`
-
-	StationId string `mapstructure:"station_id"`
-	Longitude string `mapstructure:"longitude"`
-	Latitude  string `mapstructure:"latitude"`
+	Mode                 int    `mapstructure:"mode"`
+	Rate                 uint   `mapstructure:"rate"`
+	IsEnableStockMonitor bool   `mapstructure:"stock_monitor"`
+	IsPrivate            bool   `mapstructure:"private"`
+	StationId            string `mapstructure:"station_id"`
+	Longitude            string `mapstructure:"longitude"`
+	Latitude             string `mapstructure:"latitude"`
 
 	KeyWords []Keyword `mapstructure:"keywords"`
 
@@ -138,6 +139,7 @@ func ConfigFromArg() (*config, string) {
 	rate := flag.Uint("r", 3600, "rate")
 	lat := flag.String("lat", "", "latitude")
 	lng := flag.String("lng", "", "lng")
+	isPrivate := flag.Bool("i", false, "private info")
 	stationId := flag.String("sta", "", "station id")
 	//stockMonitorFlag:=flag.Bool("s",false,"stock monitor")
 	var barkIdsFlag barkIds
@@ -149,12 +151,28 @@ func ConfigFromArg() (*config, string) {
 	conf.Longitude = *lng
 	conf.StationId = *stationId
 	conf.Bark.Id = barkIdsFlag
+	if *isPrivate {
+		fmt.Println("隐私模式")
+	}
+	conf.IsPrivate = *isPrivate
+	Conf.IsPrivate = *isPrivate
 	return conf, *configFilePath
 
 }
 func ConfigFromFile(path string) config {
 	var conf = new(config)
-	fmt.Println("配置文件将会从 " + path + " 加载")
+	if !Conf.IsPrivate {
+		fmt.Println("配置文件将会从 " + path + " 加载")
+	}
+
+	if strings.HasPrefix(path, "https://") {
+		fmt.Println("配置文件下载中")
+		util.DownFile(path, "./config.remote.yaml")
+		path = "./config.remote.yaml"
+		fmt.Println("配置文件下载完毕")
+
+	}
+
 	viper.SetConfigFile(path)
 	// Read configuration
 	if err := viper.ReadInConfig(); err != nil {

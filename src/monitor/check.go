@@ -108,7 +108,10 @@ func GetStationId(lng string, lat string) string {
 	if StationId != "" {
 		info := data["station_info"].(map[string]interface{})
 		name := info["name"].(string)
-		fmt.Println("当前经纬度读取到的站点名称: " + name)
+		if !Conf.IsPrivate {
+			fmt.Println("当前经纬度读取到的站点名称: " + name)
+		}
+
 	}
 	defer func(Body io.ReadCloser) {
 		err = Body.Close()
