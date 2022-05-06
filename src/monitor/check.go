@@ -52,6 +52,7 @@ func CheckTransportCapacity() (bool, error) {
 		}
 	}(resp.Body)
 	if strings.Contains(string(body), BOOKABLE) {
+		fmt.Println("当前有运力")
 		return true, nil
 	} else {
 		return false, errors.New("当前运力紧张，或者首页暂无信息")

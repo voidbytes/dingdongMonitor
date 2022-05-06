@@ -58,7 +58,7 @@ func CheckTrans() bool {
 		return false
 	}
 
-	if bookable {
+	if bookable && !monitor.Conf.IsEnableStockMonitor {
 		fmt.Println("已可预约")
 		monitor.PushTo(monitor.NOTICE_TITLE, monitor.NOTICE_BOOKABLE, monitor.Conf.Bark.Sound)
 		return true
