@@ -8,9 +8,9 @@ stock_monitor: true #库存检测开关 根据关键词和价格检测
 #注意 开启库存检测后 无库存有运力的情况下不会提醒
 keywords:
   - name: 馒头
-    price: 0 #价格设置为零或者不填，则默认不限制价格
+    price: 15 #小于或等于此价格的才会提醒 相当于价格设置为零或者不填，则默认不限制价格
   - name: 桃太郎粉番茄
-    price: 10.9
+    price: 0
 #地理位置信息 填写经纬度之后则不需要填写，站点id，经纬度可以通过https://lbs.amap.com/tools/picker 获取
 latitude: 31.223505
 longitude: 121.44532
