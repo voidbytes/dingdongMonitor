@@ -5,13 +5,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/shopspring/decimal"
 	"io"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func CheckHome() (bool, error) {
+func CheckTransportCapacity() (bool, error) {
 	url := "https://maicai.api.ddxq.mobi/homeApi/newDetails"
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -56,7 +58,7 @@ func CheckHome() (bool, error) {
 	}
 
 }
-func GetStationId() string {
+func GetStationId(lng string, lat string) string {
 	fmt.Println("正在获取站点信息...")
 	url := "https://sunquan.api.ddxq.mobi/api/v2/user/location/refresh/"
 	req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -69,16 +71,16 @@ func GetStationId() string {
 		Transport: &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}},
 	}
 	req.Header.Add("user-agent", UA)
-	req.Header.Add("ddmc-longitude", Conf.Longitude)
-	req.Header.Add("ddmc-latitude", Conf.Latitude)
+	req.Header.Add("ddmc-longitude", lng)
+	req.Header.Add("ddmc-latitude", lat)
 	query := req.URL.Query()
 	query.Add("api_version", API_VERSION)
 	query.Add("station_id", Conf.StationId)
 	query.Add("city_number", CITY)
 	query.Add("buildVersion", BUILD_VERSION)
 	query.Add("app_client_id", "1")
-	query.Add("longitude", Conf.Longitude)
-	query.Add("latitude", Conf.Latitude)
+	query.Add("longitude", lng)
+	query.Add("latitude", lat)
 	req.URL.RawQuery = query.Encode()
 	resp, err := client.Do(req)
 	if err != nil {
@@ -115,5 +117,103 @@ func GetStationId() string {
 		}
 	}(resp.Body)
 	return StationId
+
+}
+func CheckStock(page int, keyWords []Keyword) (isSucccess bool, isMore bool, products []map[string]string, totalGoods int) {
+	url := "https://maicai.api.ddxq.mobi/homeApi/homeFlowDetail"
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		fmt.Println(err)
+		return false, false, nil, 0
+	}
+	var client = &http.Client{
+		Timeout:   TIME_OUT,
+		Transport: &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}},
+	}
+	req.Header.Add("user-agent", UA)
+	req.Header.Add("ddmc-city-number", CITY)
+	req.Header.Add("ddmc-api-version", API_VERSION)
+	req.Header.Add("ddmc-build-version", BUILD_VERSION)
+	req.Header.Add("ddmc-app-client-id", strconv.Itoa(CLIENT_ID))
+	req.Header.Add("ddmc-station-id", Conf.StationId)
+	query := req.URL.Query()
+	query.Add("api_version", API_VERSION)
+	query.Add("station_id", Conf.StationId)
+	query.Add("city_number", CITY)
+	query.Add("buildVersion", BUILD_VERSION)
+	query.Add("app_client_id", "1")
+	query.Add("tab_type", "1")
+	query.Add("page", strconv.Itoa(page))
+	req.URL.RawQuery = query.Encode()
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return false, false, nil, 0
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println(err)
+		return false, false, nil, 0
+	}
+
+	if resp.StatusCode != 200 {
+		return false, false, nil, 0
+	}
+	defer func(Body io.ReadCloser) {
+		err = Body.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}(resp.Body)
+	var result map[string]interface{}
+	err = json.Unmarshal([]byte(body), &result)
+	data := result["data"].(map[string]interface{})
+	isMore = data["is_more"].(bool)
+	productsList := data["list"].([]interface{})
+
+	products = make([]map[string]string, 0)
+	totalGoods = 0
+	for _, product := range productsList {
+		status := product.(map[string]interface{})["status"]
+		if int(status.(float64)) != 1 {
+			continue
+		}
+		totalGoods = totalGoods + 1
+		for _, keyword := range keyWords {
+
+			name := product.(map[string]interface{})["name"]
+			price := product.(map[string]interface{})["price"]
+			setPrice, err := decimal.NewFromString(keyword.Price)
+			if err != nil {
+				fmt.Println(err)
+			}
+			objPrice, err := decimal.NewFromString(price.(string))
+			if err != nil {
+				fmt.Println(err)
+			}
+			if !strings.Contains(name.(string), keyword.Name) {
+				continue
+
+			}
+			if !setPrice.Sub(objPrice).IsPositive() && !setPrice.Equal(decimal.NewFromInt(0)) {
+				continue
+
+			}
+			res := map[string]string{
+				"keyword": keyword.Name,
+				"name":    name.(string),
+				"price":   price.(string),
+			}
+			products = append(products, res)
+
+		}
+	}
+	if len(products) != 0 {
+		return true, isMore, products, totalGoods
+
+	}
+
+	return true, isMore, nil, totalGoods
 
 }

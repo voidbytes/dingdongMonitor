@@ -4,17 +4,25 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
-func PushToBark(title string, content string, sound string) {
+func PushTo(title string, content string, sound string) {
+	doPushToBark(title, content, sound)
+}
+func doPushToBark(title string, content string, sound string) {
 	var urls []string
 	for _, id := range Conf.Bark.Id {
-		url := "https://api.day.app/" + id + "/" + title + "/" + content
-		urls = append(urls, url)
+		if id == "" || strings.ReplaceAll(id, " ", "") == "" {
+			continue
+		}
+		u := "https://api.day.app/" + id + "/" + url.PathEscape(title) + "/" + url.PathEscape(content)
+		urls = append(urls, u)
 	}
 
-	for _, url := range urls {
-		req, err := http.NewRequest(http.MethodGet, url, nil)
+	for _, u := range urls {
+		req, err := http.NewRequest(http.MethodGet, u, nil)
 		if err != nil {
 			fmt.Println(err)
 		}

@@ -2,9 +2,7 @@ module dingdong_monitor
 
 go 1.18
 
-require (
-	github.com/spf13/viper v1.11.0
-)
+require github.com/spf13/viper v1.11.0
 
 require (
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
@@ -13,6 +11,7 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.0-beta.8 // indirect
+	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
