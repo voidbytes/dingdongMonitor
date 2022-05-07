@@ -2,8 +2,6 @@
 叮咚运力监控，监控叮咚首页公告信息获取当前运力情况与货品有货情况，通过bark app通知到手机。本工具不需要抓包，只需要获取经纬度坐标即可  
 经纬度获取： https://lbs.amap.com/tools/picker  
 
-# 更新
-### 2022-5-7 405问题修复
 # 运行效果  
 
 <img width="361" alt="image" src="https://user-images.githubusercontent.com/13680422/167243237-59933c2d-867b-48a5-8fc8-5cb76a65732d.png">
