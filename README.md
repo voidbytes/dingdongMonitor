@@ -17,7 +17,7 @@ go build
 #### GitHub Action运行
 1.fork本仓库  
 2.将config.example.yaml改名为config.yaml，设置好所需信息  
-3.根据monitor.yml设置好相应的secrets 
-4.monitor.yml配置方法参见：  
+3.根据monitor.yml设置好相应的secrets,并解除注释  
+monitor.yml配置方法参见：  
 [GitHub Actions文档 - GitHub Docs](https://docs.github.com/cn/actions)  
 [Crontab.guru - The cron schedule expression editor](https://crontab.guru/)
