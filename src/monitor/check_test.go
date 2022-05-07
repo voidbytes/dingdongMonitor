@@ -8,13 +8,13 @@ import (
 )
 
 func TestGetStationId(t *testing.T) {
-	_ = GetStationId("121.43818", "31.19169")
+	_ = GetStationId("121.547176", "31.236673")
 
 }
 func TestCheckStock(t *testing.T) {
-	conf := ConfigFromFile("../../config.example.yaml")
+	conf := ConfigFromFile("../../config.yaml")
 	Conf = &conf
-	Conf.StationId = GetStationId("121.43818", "31.19169")
+	Conf.StationId = GetStationId("121.547176", "31.236673")
 
 	keywords := Conf.KeyWords
 	var newKeywords []Keyword
@@ -39,9 +39,9 @@ func TestCheckStock(t *testing.T) {
 
 }
 func TestCheckTransportCapacity(t *testing.T) {
-	conf := ConfigFromFile("../../config.example.yaml")
+	conf := ConfigFromFile("../../config.yaml")
 	Conf = &conf
-	Conf.StationId = GetStationId("121.43818", "31.19169")
+	Conf.StationId = GetStationId("121.547176", "31.236673")
 	_, err := CheckTransportCapacity()
 	if err != nil {
 		fmt.Println(err)
