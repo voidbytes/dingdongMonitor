@@ -21,3 +21,6 @@ go build
 monitor.yml配置方法参见：  
 [GitHub Actions文档 - GitHub Docs](https://docs.github.com/cn/actions)  
 [Crontab.guru - The cron schedule expression editor](https://crontab.guru/)
+填好之后大概是这样的，不懂yaml格式的可以看看(隐私信息已做处理)：
+<img width="576" alt="image" src="https://user-images.githubusercontent.com/13680422/167242482-ea7a8b8d-df28-42d0-ad6d-0f0f66610d44.png">
+
