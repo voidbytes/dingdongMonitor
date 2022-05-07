@@ -23,7 +23,7 @@ keywords:
 latitude: 31.236673
 longitude: 121.547176
 bark:
-#  id: #bark id 支持多设备
-#   - Nzdn6so3XhqK6FAfBN93Qg
-#   -
+  id: #bark id 支持多设备
+   - Nzdn6so3XhqK6FAfBN93Qg
+   -
   sound: alarm #通知声音
