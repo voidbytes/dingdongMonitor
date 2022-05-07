@@ -1,6 +1,9 @@
 # Ding-dongMonitor
 叮咚运力监控，监控叮咚首页公告信息获取当前运力情况与货品有货情况，通过bark app通知到手机。本工具不需要抓包，只需要获取经纬度坐标即可  
-经纬度获取： https://lbs.amap.com/tools/picker
+经纬度获取： https://lbs.amap.com/tools/picker  
+
+# 5-7日
+GitHub的IP好像被风控了？本地跑不会405  
 
 # 使用说明
 首先需要自己使用Charles、Fiddler等工具对叮咚买菜小程序、App抓包，获取config.yaml中需要的参数。
