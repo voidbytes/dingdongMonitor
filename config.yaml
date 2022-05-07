@@ -22,8 +22,8 @@ keywords:
 #地理位置信息 填写经纬度之后则不需要填写，站点id，经纬度可以通过https://lbs.amap.com/tools/picker 获取
 latitude: 31.236673
 longitude: 121.547176
-bark:
-  id: #bark id 支持多设备
+#bark:
+ # id: #bark id 支持多设备
  #   - Nzdn6so3XhqK6FAfBN93Qg
  #   -
   sound: alarm #通知声音
