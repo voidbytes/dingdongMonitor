@@ -27,13 +27,13 @@ jobs:
         run: go build -o app
       - name: Test
         run: go test -v ./...
-      # - name: Run
-      #   env:
-      #     LNG: ${{ secrets.LNG }}
-      #     LAT: ${{ secrets.LAT }}
-      #     BARK_ID_1: ${{ secrets.LAT }}
-      #     BARK_ID_2: ${{ secrets.LAT }}
-      #     URL: ${{ secrets.URL }}
-      #   run: ./app  -p=$URL -lng=$LNG -lat=$LAT  -m=1 -i -b=$BARK_ID_1 -b=$BARK_ID_2
+      - name: Run
+        env:
+          LNG: ${{ secrets.LNG }}
+          LAT: ${{ secrets.LAT }}
+          BARK_ID_1: ${{ secrets.LAT }}
+          BARK_ID_2: ${{ secrets.LAT }}
+          URL: ${{ secrets.URL }}
+        run: ./app  -p=$URL -lng=$LNG -lat=$LAT  -m=1 -i -b=$BARK_ID_1 -b=$BARK_ID_2
 
 
