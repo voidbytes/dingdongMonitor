@@ -14,7 +14,6 @@ const (
 	CITY            = "0101"
 	API_VERSION     = "9.50.2"
 	BUILD_VERSION   = "1232"
-	CLIENT_ID       = 1
 	TIME_OUT        = 10 * time.Second
 	BOOKABLE        = "可预约"
 	NOTICE_BOOKABLE = "可以预约啦"
@@ -22,6 +21,7 @@ const (
 	DEFAULT_RATE    = 3600
 	LOCAL_MODE      = 0
 	GITHUB_MODE     = 1
+	APP_CLIENT_ID   = 10
 )
 
 var Conf = new(config)
