@@ -168,7 +168,7 @@ func ConfigFromFile(path string) config {
 		fmt.Println("配置文件将会从 " + path + " 加载")
 	}
 
-	if strings.HasPrefix(path, "https://") {
+	if strings.HasPrefix(path, "https://") || strings.HasPrefix(path, "http://") {
 		fmt.Println("配置文件下载中")
 		util.DownFile(path, "./config.remote.yaml")
 		path = "./config.remote.yaml"
