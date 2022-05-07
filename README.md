@@ -14,6 +14,7 @@
 1. 自己使用Charles、Fiddler等工具对叮咚买菜小程序、App抓包，获取config.yaml中需要的参数。
 2. 不想抓包或者不会抓包可以直接在配置文件填写家里的经纬度。经纬度获取： https://lbs.amap.com/tools/picker
 3. 不想build可以直接下release包 https://github.com/czqu/dingdongMonitor/releases
+4. 目前好像不填写经纬度就会405
 # 运行
 目前提供两种方式运行，
 ### 本机运行

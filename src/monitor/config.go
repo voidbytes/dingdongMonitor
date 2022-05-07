@@ -10,10 +10,10 @@ import (
 )
 
 const (
-	UA              = "neighborhood/9.50.2 (iPhone; iOS 15.4.1; Scale/3.00)"
+	UA              = "Mozilla/5.0 (iPhone; CPU iPhone OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/19E258 Ariver/1.1.0 AliApp(AP/10.2.60.6200) Nebula WK RVKType(0) AlipayDefined(nt:WIFI,ws:390|780|3.0,ac:T) AlipayClient/10.2.60.6200 Language/zh-Hans Region/CN NebulaX/1.0.0"
 	CITY            = "0101"
-	API_VERSION     = "9.50.2"
-	BUILD_VERSION   = "1232"
+	API_VERSION     = "9.51.0"
+	BUILD_VERSION   = "2.86.3"
 	TIME_OUT        = 10 * time.Second
 	BOOKABLE        = "可预约"
 	NOTICE_BOOKABLE = "可以预约啦"
@@ -22,6 +22,9 @@ const (
 	LOCAL_MODE      = 0
 	GITHUB_MODE     = 1
 	APP_CLIENT_ID   = 10
+	ALIMINIMARK     = "DDNMSL"
+	OPEN_ID         = "6666666666666666"
+	REFERER         = "https://2021001157662937.hybrid.alipay-eco.com/2021001157662937/0.2.2205051588.15/index.html#pages/mainPackage/home/home"
 )
 
 var Conf = new(config)

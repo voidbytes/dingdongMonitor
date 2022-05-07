@@ -1,4 +1,4 @@
-mode: 1 #mode=0 本机模式，启动后会根据rate设置的时间运行 mode=1 github_action模式，每次启动只运行一次
+mode: 0 #mode=0 本机模式，启动后会根据rate设置的时间运行 mode=1 github_action模式，每次启动只运行一次
 station_id:  #站点id 通过抓包得到，也可以不填写此字段，只填写下面的经纬度，填写此字段后经纬度的配置不会生效
 # rate在GitHub模式下不生效 需要在GitHub action配置文件配置
 rate: 3600 # 监控频率，单位：秒

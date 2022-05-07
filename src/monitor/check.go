@@ -25,9 +25,17 @@ func CheckTransportCapacity() (bool, error) {
 		Transport: &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}},
 	}
 	req.Header.Add("user-agent", UA)
+	req.Header.Add("alipayminimark", ALIMINIMARK)
+	req.Header.Add("referer", REFERER)
 	req.Header.Add("ddmc-app-client-id", strconv.Itoa(APP_CLIENT_ID))
+	req.Header.Add("ddmc-city-number", CITY)
+	req.Header.Add("ddmc-api-version", API_VERSION)
+	req.Header.Add("ddmc-build-version", BUILD_VERSION)
+
 	query := req.URL.Query()
+	query.Add("openid", OPEN_ID)
 	query.Add("api_version", API_VERSION)
+	query.Add("app_version", BUILD_VERSION)
 	query.Add("station_id", Conf.StationId)
 	query.Add("city_number", CITY)
 	query.Add("buildVersion", BUILD_VERSION)
@@ -137,19 +145,26 @@ func CheckStock(page int, keyWords []Keyword) (isSucccess bool, isMore bool, pro
 		Transport: &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}},
 	}
 	req.Header.Add("user-agent", UA)
+	req.Header.Add("alipayminimark", ALIMINIMARK)
+	req.Header.Add("referer", REFERER)
+	req.Header.Add("ddmc-app-client-id", strconv.Itoa(APP_CLIENT_ID))
 	req.Header.Add("ddmc-city-number", CITY)
 	req.Header.Add("ddmc-api-version", API_VERSION)
 	req.Header.Add("ddmc-build-version", BUILD_VERSION)
-	req.Header.Add("ddmc-app-client-id", strconv.Itoa(APP_CLIENT_ID))
 	req.Header.Add("ddmc-station-id", Conf.StationId)
 	query := req.URL.Query()
 	query.Add("api_version", API_VERSION)
+	query.Add("app_version", BUILD_VERSION)
 	query.Add("station_id", Conf.StationId)
 	query.Add("city_number", CITY)
 	query.Add("buildVersion", BUILD_VERSION)
 	query.Add("app_client_id", strconv.Itoa(APP_CLIENT_ID))
-	query.Add("tab_type", "1")
+	query.Add("s_id", OPEN_ID)
+	query.Add("open_id", OPEN_ID)
+	query.Add("longitude", Conf.Longitude)
+	query.Add("latitude", Conf.Latitude)
 	query.Add("page", strconv.Itoa(page))
+	query.Add("tab_type", "1")
 	req.URL.RawQuery = query.Encode()
 	resp, err := client.Do(req)
 	if err != nil {
@@ -164,6 +179,7 @@ func CheckStock(page int, keyWords []Keyword) (isSucccess bool, isMore bool, pro
 	}
 
 	if resp.StatusCode != 200 {
+		fmt.Println(string(body))
 		return false, false, nil, 0
 	}
 	defer func(Body io.ReadCloser) {
