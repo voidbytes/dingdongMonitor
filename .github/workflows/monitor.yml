@@ -31,9 +31,9 @@ jobs:
         env:
           LNG: ${{ secrets.LNG }}
           LAT: ${{ secrets.LAT }}
-          BARK_ID_1: ${{ secrets.LAT }}
-          BARK_ID_2: ${{ secrets.LAT }}
-          URL: ${{ secrets.URL }}
+          BARK_ID_1: ${{ secrets.BARK_ID_1 }}
+          BARK_ID_2: ${{ secrets. BARK_ID_2 }}
+          URL: ${{ secrets.URL }}  #可以使用远程配置文件 如https://xxx.com/config.yaml 
         run: ./app  -p=$URL -lng=$LNG -lat=$LAT  -m=1 -i -b=$BARK_ID_1 -b=$BARK_ID_2
 
 
