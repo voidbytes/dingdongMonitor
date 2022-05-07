@@ -63,6 +63,9 @@ func CheckTrans() bool {
 		monitor.PushTo(monitor.NOTICE_TITLE, monitor.NOTICE_BOOKABLE, monitor.Conf.Bark.Sound)
 		return true
 	}
+	if bookable {
+		return true
+	}
 	return false
 
 }
