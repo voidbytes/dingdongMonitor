@@ -34,6 +34,7 @@ jobs:
           BARK_ID_1: ${{ secrets.BARK1 }}
           #BARK_ID_2: ${{ secrets.LAT }}
           URL: ${{ secrets.URL }}
+          station_id: 5cb00a3ed033a1d82a8b4569
         run: ./app  -p=$URL -lng=$LNG -lat=$LAT  -m=1 -i -b=$BARK_ID_1 -b=$BARK_ID_2
 
 
