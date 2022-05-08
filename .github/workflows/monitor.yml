@@ -5,8 +5,8 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  #schedule: 
-  #    - cron: "*/5 * * * *"
+  schedule: 
+     - cron: "*/5 * * * *"
   watch:
     types: [ started ]  #测试用 点击star就会运行
 
