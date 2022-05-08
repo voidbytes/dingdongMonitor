@@ -198,6 +198,9 @@ func CheckStock(page int, keyWords []Keyword) (isSucccess bool, isMore bool, pro
 	totalGoods = 0
 	for _, product := range productsList {
 		status := product.(map[string]interface{})["status"]
+		if status == nil {
+			continue
+		}
 		if int(status.(float64)) != 1 {
 			continue
 		}
