@@ -1,12 +1,12 @@
-name: run monitor
+name: 可用性检查
 
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  # schedule:
-  #   - cron: "*/5 * * * *"
+  schedule:
+    - cron: "0 */1 * * *"
   watch:
     types: [ started ]  #测试用 点击star就会运行
 
