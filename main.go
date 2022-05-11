@@ -126,8 +126,8 @@ func isAllowTimeNow() bool {
 	local := time.FixedZone("UTC+8", 8*60*60)
 
 	fmt.Println("当前系统时间：" + now.In(local).Format("2006-01-02 15:04:05"))
-	startTime, _ := time.ParseInLocation("2006-01-02 15:04:05", now.Format("2006-01-02")+" "+"06:15:00", local)
-	endTime, _ := time.ParseInLocation("2006-01-02 15:04:05", now.Format("2006-01-02")+" "+"23:00:00", local)
+	startTime, _ := time.ParseInLocation("2006-01-02 15:04:05", now.In(local).Format("2006-01-02")+" "+"06:15:00", local)
+	endTime, _ := time.ParseInLocation("2006-01-02 15:04:05", now.In(local).Format("2006-01-02")+" "+"23:00:00", local)
 	if now.In(local).Before(endTime) && now.In(local).After(startTime) {
 		return true
 	}
